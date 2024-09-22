@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import test.common.ValidateHelpers;
 import test.pages.DashboardPage;
+import test.pages.ProjectPim;
 import test.pages.SignPage;
 
 public class SignInTest {
@@ -15,6 +16,7 @@ public class SignInTest {
     private ValidateHelpers validateHelpers;
     private SignPage signInPage;
     private DashboardPage dashboardPage;
+    private ProjectPim projectPim;
     @BeforeMethod
     public void setUp() {
         // Cài đặt ChromeDriver
@@ -26,15 +28,21 @@ public class SignInTest {
         driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
         // Khởi tạo các đối tượng trang và trợ giúp
-        validateHelpers = new ValidateHelpers(driver);
+//        validateHelpers = new ValidateHelpers(driver);
         signInPage = new SignPage(driver);
-        dashboardPage= new DashboardPage(driver);
+//        dashboardPage= new DashboardPage(driver);
+//        projectPim = new ProjectPim(driver);
     }
     @Test
     public void testSignInAndOpenPIM() {
         // Thực hiện đăng nhập với tài khoản Admin
-        signInPage.SignIn("Admin", "admin123");
-        dashboardPage.opendPIM();
+        DashboardPage dashboardPage = signInPage.SignIn("Admin", "admin123");
+
+        // Mở PIM và nhận đối tượng ProjectPim
+        ProjectPim projectPim = dashboardPage.opendPIM();
+
+        // Thêm PIM
+        projectPim.addPim();
 
     }
 
