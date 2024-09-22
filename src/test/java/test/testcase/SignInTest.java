@@ -7,12 +7,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import test.common.ValidateHelpers;
+import test.pages.DashboardPage;
 import test.pages.SignPage;
 
 public class SignInTest {
     private WebDriver driver;
     private ValidateHelpers validateHelpers;
     private SignPage signInPage;
+    private DashboardPage dashboardPage;
     @BeforeMethod
     public void setUp() {
         // Cài đặt ChromeDriver
@@ -26,15 +28,14 @@ public class SignInTest {
         // Khởi tạo các đối tượng trang và trợ giúp
         validateHelpers = new ValidateHelpers(driver);
         signInPage = new SignPage(driver);
+        dashboardPage= new DashboardPage(driver);
     }
     @Test
-    public void abc() {
+    public void testSignInAndOpenPIM() {
         // Thực hiện đăng nhập với tài khoản Admin
         signInPage.SignIn("Admin", "admin123");
+        dashboardPage.opendPIM();
 
-        // Thêm các kiểm tra khác nếu cần, ví dụ kiểm tra tiêu đề trang
-        // String pageTitle = driver.getTitle();
-        // Assert.assertEquals(pageTitle, "OrangeHRM");
     }
 
     // Đóng trình duyệt sau mỗi bài test
